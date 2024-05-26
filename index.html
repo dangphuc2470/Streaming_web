@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>Videojs - Source Switcher</title>
+<link href="https://unpkg.com/video.js/dist/video-js.css" rel="stylesheet">
+<link rel="stylesheet" href="style.css"> </head>
+<body>
+  <div class="source-control">
+    <select id="source-select">
+      <option value="vod/index.m3u8" selected>VOD</option>
+      <option value="hls/stream/index.m3u8">HLS Stream</option>
+      <option id="youtube-option" value="">Youtube Restream</option>
+      <option id="facebook-option" value="">Facebook Restream</option>
+    
+    </select>
+    <button id="change-source-btn">Change Source</button>
+  </div>
+
+  <div id="resolution-buttons">
+    <button id="low-res-btn">Low Resolution</button>
+    <button id="mid-res-btn">Medium Resolution</button>
+    <button id="high-res-btn">High Resolution</button>
+  </div>
+
+  <div id="video-container" style="display: block;">
+    <video id="my_video_1" class="vjs-default-skin" controls preload="auto" width="400" height="225" poster="../images/bbb-poster.jpg">
+      <source src="vod/index.m3u8" type="application/x-mpegURL">
+    </video>
+  </div>
+  
+  <div id="youtube-video-container"  style="display: none;">
+    <iframe id="youtube-iframe" src="" allowfullscreen></iframe>
+  </div>
+
+  <div id="facebook-video-container" src="" style="display: none;">
+    
+    <iframe id="facebook-iframe" src=""></iframe>
+
+  </div>
+
+  <script src="https://unpkg.com/video.js/dist/video.js"></script>
+  <script src="https://unpkg.com/@videojs/http-streaming/dist/videojs-http-streaming.js"></script>
+  <script src="script.js"></script> </body>
+</html>
