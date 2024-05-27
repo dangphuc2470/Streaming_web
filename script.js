@@ -2,6 +2,28 @@
 //var youtubeChannel= "UCASAYSJj2N3xu6B0l6TryEg"; // HP
 //var youtubeChannel= "UCiBs3jF6UKT91AXm4vPFBOg"; // DNHP
 //var youtubeValue= "https://www.youtube.com/embed/-qmGV_rQw1k"
+const chatInput = document.getElementById('chat-input');
+const chatSend = document.getElementById('chat-send');
+const chatMessages = document.getElementById('chat-messages');
+
+const messagesRef = firebase.database().ref('messages');
+
+chatSend.addEventListener('click', () => {
+  const message = chatInput.value;
+  chatInput.value = '';
+
+  // Send the message to Firebase
+  messagesRef.push(message);
+});
+
+// Listen for new messages
+messagesRef.on('child_added', (snapshot) => {
+  const message = snapshot.val();
+  const messageElement = document.createElement('p');
+  messageElement.textContent = message;
+  chatMessages.appendChild(messageElement);
+});
+
 
 var youtubeIframe = '<iframe width="560" height="315" src="https://www.youtube.com/embed/vyMh2_OUiL0?si=ToveOnIf5SVM7VCT" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
 var facebookIframe = '<iframe src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2F61556247166361%2Fvideos%2F3874014176201954%2F&width=1280" width="1280" height="720" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>';
@@ -45,7 +67,7 @@ document.getElementById('Facebook').addEventListener('click', function () {
 })
 
 document.getElementById('VOD').addEventListener('click', function () {
-  console.log("VOD");
+  console.log("VOD22");
   player.configure({ source: "vod/index.m3u8" });
   youtubePlayer.src = '';
   facebookPlayer.src = '';

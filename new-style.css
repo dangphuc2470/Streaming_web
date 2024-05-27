@@ -168,3 +168,24 @@ body {
   background: linear-gradient(to right, red 5%, rgb(218, 217, 217) 5%,rgb(218, 217, 217));
   margin-top: 10px;
 }
+#chat-box {
+    width: 300px;
+    height: 400px;
+    background-color: #F0F4F9;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#chat-messages {
+    flex-grow: 1;
+}
+
+#chat-input {
+    width: 70%;
+}
+
+#chat-send {
+    width: 30%;
+}
