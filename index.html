@@ -1,45 +1,61 @@
 <!DOCTYPE html>
-<html>
+<html lang="vi">
 <head>
-<meta charset="utf-8"/>
-<title>Videojs - Source Switcher</title>
-<link href="https://unpkg.com/video.js/dist/video-js.css" rel="stylesheet">
-<link rel="stylesheet" href="style.css"> </head>
+    <meta charset="UTF-8">
+    <!-- <meta http-equiv="refresh" content="1"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
+    <link rel="icon" href="logo.svg" type="image/x-icon"> <!-- Add this line -->
+    <link href="new-style.css" rel="stylesheet">
+    <title>Streaming service</title>
+
+</head>
 <body>
-  <div class="source-control">
-    <select id="source-select">
-      <option value="vod/index.m3u8" selected>VOD</option>
-      <option value="hls/stream/index.m3u8">HLS Stream</option>
-      <option id="youtube-option" value="">Youtube Restream</option>
-      <option id="facebook-option" value="">Facebook Restream</option>
-    
-    </select>
-    <button id="change-source-btn">Change Source</button>
-  </div>
+    <div class="header">
+        <div class="header-content">
+            <div class="logo">
+                <img src="logo.svg" alt="Logo">
+            </div>
+            <h1>STREAMING SERVICE</h1>
+        </div>
+    </div>
+    <div class="container">
+        <div class="video-section">
+            <div id="player"></div>
+            <iframe id="youtubePlayer" width="800" height="450" style="display: none;"></iframe>
+            <iframe id="facebookPlayer" width="800" height="450" style="display: none;"></iframe>
+        </div>
+        
+        <div class="sidebar">
+            <h2>Nội dung</h2>
+            <div class="button-column">
+              <button id="VOD">VOD</button>
+              <button id="HLS">HLS Stream</button>
+              <button id="Youtube" value="">Youtube Restream</button>
+              <button id="Facebook" value="">Facebook Restream</button>
+                        
+            <h2 class="rs" style="display: block;">Độ phân giải (Chỉ hoạt động với HLS Stream)</h2>
+              <div class="resolution-buttons">
+                <button id="low-res-btn">Thấp</button>
+                <button id="mid-res-btn">Trung bình</button>
+                <button id="high-res-btn">Cao</button>
+              </div>
+            </div>
 
-  <div id="resolution-buttons">
-    <button id="low-res-btn">Low Resolution</button>
-    <button id="mid-res-btn">Medium Resolution</button>
-    <button id="high-res-btn">High Resolution</button>
-  </div>
+           
+            
+        </div>
+    </div>
+    <div class="description">
+        <h2 class="description-title">Mô tả</h2>
+        <p>
+            Môn học cung cấp kiến thức và kỹ năng về các công nghệ truyền thông đa phương tiện tiên tiến hiện nay cho các dữ liệu và tín hiệu như audio, video,…dùng trong các ứng dụng truyền thông phổ dụng hiện nay như IPTV, VoIP, digital multimedia.
+        </p>
+        <div id="live-stat"></div>
+    </div>
+</body>
 
-  <div id="video-container" style="display: block;">
-    <video id="my_video_1" class="vjs-default-skin" controls preload="auto" width="400" height="225" poster="../images/bbb-poster.jpg">
-      <source src="vod/index.m3u8" type="application/x-mpegURL">
-    </video>
-  </div>
-  
-  <div id="youtube-video-container"  style="display: none;">
-    <iframe id="youtube-iframe" src="" allowfullscreen></iframe>
-  </div>
 
-  <div id="facebook-video-container" src="" style="display: none;">
-    
-    <iframe id="facebook-iframe" src=""></iframe>
-
-  </div>
-
-  <script src="https://unpkg.com/video.js/dist/video.js"></script>
-  <script src="https://unpkg.com/@videojs/http-streaming/dist/videojs-http-streaming.js"></script>
-  <script src="script.js"></script> </body>
+    <script src="script.js"></script>
+  </body>
 </html>
