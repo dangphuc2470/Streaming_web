@@ -134,12 +134,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
                   "Compiler": xmlDoc.querySelector("compiler").textContent,
                   "Built": xmlDoc.querySelector("built").textContent,
                   "PID": xmlDoc.querySelector("pid").textContent,
-                  "Uptime": xmlDoc.querySelector("uptime").textContent,
-                  "Accepted Connections": xmlDoc.querySelector("naccepted").textContent,
-                  "Bandwidth In": xmlDoc.querySelector("bw_in").textContent,
-                  "Bytes In": xmlDoc.querySelector("bytes_in").textContent,
-                  "Bandwidth Out": xmlDoc.querySelector("bw_out").textContent,
-                  "Bytes Out": xmlDoc.querySelector("bytes_out").textContent
+                  "Uptime": formatUptime(parseInt(xmlDoc.querySelector("uptime").textContent)),
+                  "Bytes In": formatBytes(parseInt(xmlDoc.querySelector("bytes_in").textContent)),
+                  "Bandwidth Out": formatBytes(parseInt(xmlDoc.querySelector("bw_out").textContent)),
+                  "Bytes Out": formatBytes(parseInt(xmlDoc.querySelector("bytes_out").textContent)),
+      
               };
 
               const server = xmlDoc.querySelector("server");
@@ -206,12 +205,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
                           const streamData = {
                               "Stream Name": stream.querySelector("name").textContent,
                               "Time": stream.querySelector("time").textContent,
-                              "Bandwidth In": stream.querySelector("bw_in").textContent,
-                              "Bytes In": stream.querySelector("bytes_in").textContent,
-                              "Bandwidth Out": stream.querySelector("bw_out").textContent,
-                              "Bytes Out": stream.querySelector("bytes_out").textContent,
-                              "Bandwidth Audio": stream.querySelector("bw_audio").textContent,
-                              "Bandwidth Video": stream.querySelector("bw_video").textContent,
+                              "Bandwidth In": formatBytes(parseInt(xmlDoc.querySelector("bw_in").textContent)),
+                              "Bytes In": formatBytes(parseInt(xmlDoc.querySelector("bytes_in").textContent)),
+                              "Bandwidth Out": formatBytes(parseInt(xmlDoc.querySelector("bw_out").textContent)),
+                              "Bytes Out": formatBytes(parseInt(xmlDoc.querySelector("bytes_out").textContent)),
+                              "Bandwidth Audio": formatBytes(parseInt(stream.querySelector("bw_audio").textContent)),
+                              "Bandwidth Video": formatBytes(parseInt(stream.querySelector("bw_video").textContent)), 
                               "Clients": stream.querySelector("nclients").textContent
                           };
                           appDiv.appendChild(createTable(streamData));
@@ -260,4 +259,20 @@ for (let i = 0; i < resolutionButtons.length; i++) {
     }
     this.classList.add('selected');
   });
+}
+
+function formatBytes(bytes) {
+    if (bytes === 0) return '0 B';
+    const k = 1024;
+    const sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+}
+
+
+function formatUptime(seconds) {
+    const hrs = Math.floor(seconds / 3600);
+    const mins = Math.floor((seconds % 3600) / 60);
+    const secs = seconds % 60;
+    return `${hrs}h ${mins}m ${secs}s`;
 }
