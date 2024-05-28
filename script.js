@@ -2,6 +2,54 @@
 //var youtubeChannel= "UCASAYSJj2N3xu6B0l6TryEg"; // HP
 //var youtubeChannel= "UCiBs3jF6UKT91AXm4vPFBOg"; // DNHP
 //var youtubeValue= "https://www.youtube.com/embed/-qmGV_rQw1k"
+
+
+var app = angular.module('streamingApp', []);
+app.controller('streamingCtrl', function($scope) {
+    $scope.currentTab = 'Content';
+    $scope.userName = '';
+    $scope.chatInput = '';
+
+    var messagesRef = firebase.database().ref('messages');
+
+    $scope.openTab = function(tabName) {
+        $scope.currentTab = tabName;
+    };
+
+    $scope.sendMessage = function() {
+        var message;
+        if ($scope.userName === '') {
+            message = 'Anonymous';
+        }
+        else {
+            message = $scope.userName;
+        }
+
+        // Get current date and time
+        var now = new Date();
+        var date = now.getDate().toString().padStart(2, '0');
+        var month = (now.getMonth() + 1).toString().padStart(2, '0'); // Months are zero-based
+        var year = now.getFullYear();
+        var hours = now.getHours().toString().padStart(2, '0');
+        var minutes = now.getMinutes().toString().padStart(2, '0');
+        var currentTime = hours + ':' + minutes + " - ";
+
+        // Concatenate current time with the message
+        message = currentTime +'	' + message + ': ' + $scope.chatInput;
+
+        $scope.chatInput = '';
+
+        // Send the message to Firebase
+        messagesRef.push(message);
+    };
+});
+
+
+
+
+
+
+
 const chatInput = document.getElementById('chat-input');
 const chatSend = document.getElementById('chat-send');
 const chatMessages = document.getElementById('chat-messages');
