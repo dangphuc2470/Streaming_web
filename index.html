@@ -41,28 +41,98 @@
         </div>
         
         <div class="sidebar">
-            <h2>Nội dung</h2>
-            <div class="button-column">
-              <button id="VOD">VOD</button>
-              <button id="HLS">HLS Stream</button>
-              <button id="Youtube" value="">Youtube Restream</button>
-              <button id="Facebook" value="">Facebook Restream</button>
-                        
-            <h2 class="rs" style="display: block;">Độ phân giải (Chỉ hoạt động với HLS Stream)</h2>
-              <div class="resolution-buttons">
-                <button id="low-res-btn">Thấp</button>
-                <button id="mid-res-btn">Trung bình</button>
-                <button id="high-res-btn">Cao</button>
-              </div>
-              <div id="chat-box">
-                <div id="chat-messages"></div>
-                <input id="chat-input" type="text" placeholder="Type a message...">
-                <button id="chat-send">Send</button>
-              </div>
+
+            <div class="tab">
+                <button class="tablinks" id="defaultButton" onclick="openTab(event, 'Content')">Nội dung</button>
+                <button class="tablinks" onclick="openTab(event, 'Chat')">Chat</button>
+            </div>
+
+            <div id="Content" class="tabcontent">
+                <h2>Nội dung</h2>
+                <div class="button-column">
+                  <button id="VOD">VOD</button>
+                  <button id="HLS">HLS Stream</button>
+                  <button id="Youtube" value="">Youtube Restream</button>
+                  <button id="Facebook" value="">Facebook Restream</button>
+                            
+                <h2 class="rs">Độ phân giải (Chỉ hoạt động với HLS Stream)</h2>
+                  <div class="resolution-buttons">
+                    <button id="low-res-btn">Thấp</button>
+                    <button id="mid-res-btn">Trung bình</button>
+                    <button id="high-res-btn">Cao</button>
+                  </div>
+            </div>
+
+            <div id="Chat" class="tabcontent">
+                <h2 class="rs" style="display: block;">Chat trực tuyến</h2>
+                <div id="chat-box">
+                    <div id="chat-messages"></div>
+                    <div id="chat-input-section">
+                        <input id="user-name" type="text" placeholder="Nhập tên của bạn...">
+                        <div id="message-section">
+                            <input id="chat-input" type="text" placeholder="Nhập tin nhắn...">
+                            <button id="chat-send">
+                                <img src="send.svg" alt="Send">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+              
             
         </div>
 
-           
+        <script>
+            // Hide all tabs
+            //document.getElementById('Content').style.display = "none";
+
+            // Show the default tab
+           // openTab(null, 'Content');
+
+
+            function openTab(evt, tabName) {
+                // Hide all tabs
+                // document.getElementById('Content').style.display = "none";
+                // document.getElementById('Chat').style.display = "none";
+
+                // Show the selected tab
+                //document.getElementById(tabName).style.display = "block";
+                if (tabName == 'Chat') {
+                    document.getElementById('Chat').style.display = "block";
+                }
+                else
+                document.getElementById('Chat').style.display = "none";
+
+
+                // Remove the "active" class from all tablinks
+                var tablinks = document.getElementsByClassName("tablinks");
+                for (var i = 0; i < tablinks.length; i++) {
+                    tablinks[i].className = tablinks[i].className.replace(" active", "");
+                }
+
+                // Add the "active" class to the current tablink
+                if (evt) {
+                    evt.currentTarget.className += " active";
+                }
+            }
+
+            // Get all tab buttons
+            var tabs = document.querySelectorAll('.tab button');
+
+            // Loop through all tab buttons
+            for (var i = 0; i < tabs.length; i++) {
+                // Add click event listener to each tab button
+                tabs[i].addEventListener('click', function() {
+                    // Remove 'selected' class from all tab buttons
+                    for (var j = 0; j < tabs.length; j++) {
+                        tabs[j].classList.remove('selected');
+                    }
+
+                    // Add 'selected' class to the clicked tab button
+                    this.classList.add('selected');
+                });
+            }
+        </script>
             
         </div>
     </div>

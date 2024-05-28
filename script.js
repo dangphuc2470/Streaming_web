@@ -9,11 +9,37 @@ const chatMessages = document.getElementById('chat-messages');
 const messagesRef = firebase.database().ref('messages');
 
 chatSend.addEventListener('click', () => {
-  const message = chatInput.value;
+  var message;
+  var name = document.getElementById('user-name').value;
+  if (name === '') {
+    message = 'Anonymous';
+  }
+  else 
+  message = name;
+  
+  // Get current date and time
+  var now = new Date();
+  var date = now.getDate().toString().padStart(2, '0');
+  var month = (now.getMonth() + 1).toString().padStart(2, '0'); // Months are zero-based
+  var year = now.getFullYear();
+  var hours = now.getHours().toString().padStart(2, '0');
+  var minutes = now.getMinutes().toString().padStart(2, '0');
+  var currentTime = hours + ':' + minutes + " - ";
+
+  // Concatenate current time with the message
+  message = currentTime +'	' + message + ': ' + chatInput.value;
+  
   chatInput.value = '';
 
   // Send the message to Firebase
   messagesRef.push(message);
+});
+
+document.getElementById('chat-input').addEventListener('keyup', function(event) {
+  if (event.keyCode === 13) {
+    event.preventDefault();
+    document.getElementById('chat-send').click();
+  }
 });
 
 // Listen for new messages
@@ -22,6 +48,9 @@ messagesRef.on('child_added', (snapshot) => {
   const messageElement = document.createElement('p');
   messageElement.textContent = message;
   chatMessages.appendChild(messageElement);
+
+  var chatBox = document.getElementById('chat-messages');
+  chatBox.scrollTop = chatBox.scrollHeight;
 });
 
 
@@ -34,6 +63,7 @@ const highResBtn = document.getElementById('high-res-btn');
 
 window.onload = function() {
   document.getElementById('VOD').click();
+  document.getElementById("defaultButton").click();
 };
 
 
